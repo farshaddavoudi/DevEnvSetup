@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+
+  postgresdb-15.4:
+    image: postgres:15.4
+    container_name: postgresdb-15.4
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      #POSTGRES_USER: someusername //We use the default postgres superuser
+      POSTGRES_PASSWORD: Aa123456
+      #POSTGRES_DB: mydb //We let the postgres create a default database
+    volumes:
+       - ./BindMounts/Postgres-15.4/data:/var/lib/postgresql/data
+
+  redisdb-7.2:
+    image: redis:7.2.1
+    container_name: redisdb-7.2
+    restart: always
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=Aa123456
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    volumes:
+      - ./BindMounts/Redis-7.2/data:/data
+      - ./BindMounts/Redis-7.2/redis.conf:/usr/local/etc/redis/redis.conf
+
+  mongodb-7:
+    image: mongo:7
+    container_name: mongodb-7
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: Aa123456
+    volumes:
+      - ./BindMounts/Mongo-7/data:/data/db
+      - ./BindMounts/Mongo-7/config:/data/configdb
+
+  seq-2023.4:
+    image: datalust/seq:2023.4
+    container_name: seq-2023.4
+    restart: always
+    ports:
+      - 5340:80
+      - 5341:5341
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINUSERNAME=admin #A username for the default administrator account
+    volumes:
+      - ./BindMounts/Seq-2023.4/data:/data
+
+
