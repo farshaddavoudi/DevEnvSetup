@@ -6,7 +6,7 @@ Welcome to DevEnvSetup, a repository designed to automate the setup of my person
 
 **Chocolatey-Powered Installation**: DevEnvSetup includes scripts for installing a curated set of essential applications on Windows using the *Chocolatey Package Manager*. This ensures that I have the tools I need for coding without the manual hassle. This includes wide range of applications such as Visual Studo, MSSM, VS Code, Notepad++, .NET SDKs and Runtimes, MongoDBCompass, pgAdmin4, Docker Desktop, git, Postman and many more.
 
-**Docker Compose Configuration**: I've also included Docker Compose configurations for orchestrating various services such as Redis, SQL Server, PostgreSQL, MongoDB, and RabbitMQ, simplifying container-based development and testing.
+**Docker Compose Configuration**: I've also included Docker Compose configurations for orchestrating various services such as Redis, SQL Server, PostgreSQL, MongoDB, Seq and RabbitMQ, simplifying container-based development and testing.
 
 ## Getting Started:
 
