@@ -54,4 +54,21 @@ services:
     volumes:
       - ./BindMounts/Seq-2023.4/data:/data
 
+  rabbitmq-3.11:
+    image: rabbitmq:3.11-management
+    container_name: rabbitmq-3.11
+    restart: always
+    ports:
+        - 5672:5672 # (erlang) communication between the nodes and CLI tool
+        - 15672:15672 # communication with the web management API 
+    environment:
+        - RABBITMQ_DEFAULT_USER=admin
+        - RABBITMQ_DEFAULT_PASS=Aa123456
+    volumes:
+                  # queues and messages data of the container will be stored on the host
+                - ./BindMounts/rabbitmq-3.11/data:/var/lib/rabbitmq
+                - ./BindMounts/rabbitmq-3.11/log:/var/log/rabbitmq
+
+
+
 
