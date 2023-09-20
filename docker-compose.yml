@@ -1,6 +1,18 @@
 version: '3.8'
 services:
 
+  sqlserver-2022:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-2022
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      - MSSQL_SA_PASSWORD=Aa123456
+      - ACCEPT_EULA=Y
+    volumes:
+      - /BindMounts/SqlServer-2022/data:/var/opt/mssql
+
   postgresdb-15.4:
     image: postgres:15.4
     container_name: postgresdb-15.4
