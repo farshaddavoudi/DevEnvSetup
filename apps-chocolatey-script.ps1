@@ -36,6 +36,7 @@ choco install k-litecodecpackfull --version 17.7.5 -y
 choco install onenote --version 16.0.15330.20246 -y
 choco install postman --version 10.17.3 -y
 choco install k6 --version 0.46.0 -y
+choco install freedownloadmanager --version 6.18.1 -y
 choco install notepadplusplus.install --version 8.5.7 -y
 choco install microsoft-teams --version 1.6.0.24078 -y
 choco install linqpad --version 7.7.15 -y
