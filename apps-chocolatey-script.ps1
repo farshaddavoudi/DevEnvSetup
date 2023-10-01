@@ -1,3 +1,4 @@
+choco install vcredist140 -y
 choco install sql-server-management-studio --version 19.1.56 -y
 choco install pgadmin4 --version 6.13 -y
 choco install mongodb-compass --version 1.39.4 -y
@@ -9,6 +10,7 @@ choco install dotnet-6.0-sdk --version 6.0.414 -y
 choco install dotnet-5.0-sdk --version 5.0.408 -y
 choco install dotnetcore-2.2-sdk --version 2.2.402 -y
 choco install dotnetcore-3.1-sdk --version 3.1.426 -y
+choco install git.install -y
 choco install git --version 2.42.0 -y
 choco install docker-desktop --version 4.23.0 -y
 choco install anydesk --version 7.1.16 -y
