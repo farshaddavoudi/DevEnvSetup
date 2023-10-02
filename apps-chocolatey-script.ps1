@@ -1,4 +1,5 @@
 choco install vcredist140 -y
+choco install kb2919442 -y
 choco install sql-server-management-studio --version 19.1.56 -y
 choco install pgadmin4 --version 6.13 -y
 choco install mongodb-compass --version 1.39.4 -y
@@ -16,6 +17,7 @@ choco install docker-desktop --version 4.23.0 -y
 choco install anydesk --version 7.1.16 -y
 choco install everything --version 1.4.11024 -y
 choco install office365business --version 16626.20148 -y
+choco install nodejs.install -y
 choco install nodejs --version 20.6.0 -y
 choco install skype --version 8.103.0.208 -y
 choco install telegram --version 4.9.8 -y
