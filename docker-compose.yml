@@ -12,7 +12,7 @@ services:
       - MSSQL_SA_PASSWORD=Aa123456
       - ACCEPT_EULA=Y
     volumes:
-      - /BindMounts/SqlServer-2022/data:/var/opt/mssql
+      - ./SqlServer-2022/BindMounts/data:/var/opt/mssql
 
   postgresdb-15.4:
     image: postgres:15.4
@@ -25,7 +25,7 @@ services:
       POSTGRES_PASSWORD: Aa123456
       #POSTGRES_DB: mydb //We let the postgres create a default database
     volumes:
-       - ./BindMounts/Postgres-15.4/data:/var/lib/postgresql/data
+       - ./Postgres-15.4/BindMounts/data:/var/lib/postgresql/data
 
   redisdb-7.2:
     image: redis:7.2.1
@@ -38,8 +38,8 @@ services:
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
     volumes:
-      - ./BindMounts/Redis-7.2/data:/data
-      - ./BindMounts/Redis-7.2/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./Redis-7.2/BindMounts/data:/data
+      - ./Redis-7.2/BindMounts/redis.conf:/usr/local/etc/redis/redis.conf
 
   mongodb-7:
     image: mongo:7
@@ -51,8 +51,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: Aa123456
     volumes:
-      - ./BindMounts/Mongo-7/data:/data/db
-      - ./BindMounts/Mongo-7/config:/data/configdb
+      - ./Mongo-7/BindMounts/data:/data/db
+      - ./Mongo-7/BindMounts/config:/data/configdb
 
   seq-2023.4:
     image: datalust/seq:2023.4
@@ -65,7 +65,7 @@ services:
       - ACCEPT_EULA=Y
       - SEQ_FIRSTRUN_ADMINUSERNAME=admin #A username for the default administrator account
     volumes:
-      - ./BindMounts/Seq-2023.4/data:/data
+      - ./Seq-2023.4/BindMounts/data:/data
 
   rabbitmq-3.11:
     image: rabbitmq:3.11-management
@@ -79,8 +79,8 @@ services:
         - RABBITMQ_DEFAULT_PASS=Aa123456
     volumes:
                   # queues and messages data of the container will be stored on the host
-                - ./BindMounts/rabbitmq-3.11/data:/var/lib/rabbitmq
-                - ./BindMounts/rabbitmq-3.11/log:/var/log/rabbitmq
+                - ./rabbitmq-3.11/BindMounts/data:/var/lib/rabbitmq
+                - ./rabbitmq-3.11/BindMounts/log:/var/log/rabbitmq
 
 networks:
   shared-net:
