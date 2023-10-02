@@ -2,18 +2,6 @@ version: '3.8'
 
 services:
 
-  sqlserver-2022:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver-2022
-    restart: always
-    ports:
-      - 1433:1433
-    environment:
-      - MSSQL_SA_PASSWORD=Aa123456
-      - ACCEPT_EULA=Y
-    volumes:
-      - ./SqlServer-2022/BindMounts/data:/var/opt/mssql
-
   postgresdb-15.4:
     image: postgres:15.4
     container_name: postgresdb-15.4
@@ -25,7 +13,7 @@ services:
       POSTGRES_PASSWORD: Aa123456
       #POSTGRES_DB: mydb //We let the postgres create a default database
     volumes:
-       - ./Postgres-15.4/BindMounts/data:/var/lib/postgresql/data
+       - ./Postgres-15.4/data:/var/lib/postgresql/data
 
   redisdb-7.2:
     image: redis:7.2.1
@@ -38,8 +26,8 @@ services:
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
     volumes:
-      - ./Redis-7.2/BindMounts/data:/data
-      - ./Redis-7.2/BindMounts/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./Redis-7.2/data:/data
+      - ./Redis-7.2/redis.conf:/usr/local/etc/redis/redis.conf
 
   mongodb-7:
     image: mongo:7
@@ -51,21 +39,22 @@ services:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: Aa123456
     volumes:
-      - ./Mongo-7/BindMounts/data:/data/db
-      - ./Mongo-7/BindMounts/config:/data/configdb
+      - ./Mongo-7/data:/data/db
+      - ./Mongo-7/config:/data/configdb
 
   seq-2023.4:
     image: datalust/seq:2023.4
     container_name: seq-2023.4
     restart: always
     ports:
-      - 5340:80
-      - 5341:5341
+      - 5341:80
+      - 5342:5341
+      - 45341:45341
     environment:
       - ACCEPT_EULA=Y
       - SEQ_FIRSTRUN_ADMINUSERNAME=admin #A username for the default administrator account
     volumes:
-      - ./Seq-2023.4/BindMounts/data:/data
+      - ./Seq-2023.4/data:/data
 
   rabbitmq-3.11:
     image: rabbitmq:3.11-management
@@ -79,9 +68,8 @@ services:
         - RABBITMQ_DEFAULT_PASS=Aa123456
     volumes:
                   # queues and messages data of the container will be stored on the host
-                - ./rabbitmq-3.11/BindMounts/data:/var/lib/rabbitmq
-                - ./rabbitmq-3.11/BindMounts/log:/var/log/rabbitmq
+                - ./rabbitmq-3.11/data:/var/lib/rabbitmq
+                - ./rabbitmq-3.11/log:/var/log/rabbitmq
 
 networks:
   shared-net:
-
