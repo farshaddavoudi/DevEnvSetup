@@ -68,8 +68,8 @@ services:
         - RABBITMQ_DEFAULT_PASS=Aa123456
     volumes:
                   # queues and messages data of the container will be stored on the host
-                - ./rabbitmq-3.11/data:/var/lib/rabbitmq
-                - ./rabbitmq-3.11/log:/var/log/rabbitmq
+                - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
+                - ./RabbitMQ-3.11/log:/var/log/rabbitmq
 
 networks:
   shared-net:
