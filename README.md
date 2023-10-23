@@ -28,7 +28,7 @@ For setting up Docker Compose and managing the Docker-based services, you can do
 2. To orchestrate and spin up the services defined in the Docker Compose file, use the following command:
 
   ```shell
-   docker compose up -d
+   docker-compose up -d
    ```
 Feel free to customize the Docker Compose file to add or remove services as needed.
 
