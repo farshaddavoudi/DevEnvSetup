@@ -10,7 +10,7 @@ services:
       - 5432:5432
     environment:
       #POSTGRES_USER: someusername //We use the default postgres superuser
-      POSTGRES_PASSWORD: Aa123456
+      POSTGRES_PASSWORD: ****
       #POSTGRES_DB: mydb //We let the postgres create a default database
     volumes:
        - ./Postgres-15.4/data:/var/lib/postgresql/data
@@ -22,12 +22,13 @@ services:
     ports:
       - 6379:6379
     environment:
-      - REDIS_PASSWORD=Aa123456
+      - REDIS_PASSWORD=****
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
+    #command: redis-server /usr/local/etc/redis/redis.conf #Raises error if no config file provides. Enable when there is already a config file in the config directory
     volumes:
       - ./Redis-7.2/data:/data
-      - ./Redis-7.2/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./Redis-7.2/config:/usr/local/etc/redis
 
   mongodb-7:
     image: mongo:7
@@ -37,7 +38,7 @@ services:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: Aa123456
+      MONGO_INITDB_ROOT_PASSWORD: ****
     volumes:
       - ./Mongo-7/data:/data/db
       - ./Mongo-7/config:/data/configdb
@@ -65,7 +66,7 @@ services:
         - 15672:15672 # communication with the web management API 
     environment:
         - RABBITMQ_DEFAULT_USER=admin
-        - RABBITMQ_DEFAULT_PASS=Aa123456
+        - RABBITMQ_DEFAULT_PASS=****
     volumes:
                   # queues and messages data of the container will be stored on the host
                 - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
