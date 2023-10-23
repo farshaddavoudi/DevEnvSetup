@@ -1,4 +1,4 @@
-# DevEnvSetup: My Personal Windows Development Environment Toolkit
+# **_DevEnvSetup:_** My Personal Windows Development Environment Toolkit
 
 Welcome to DevEnvSetup, a repository designed to automate the setup of my personal Windows development environment. While initially created for my own needs, I'm sharing it here because I wanted to have it in one integrated place and to assist others in configuring their development environments.
 
@@ -30,6 +30,8 @@ For setting up Docker Compose and managing the Docker-based services, you can do
   ```shell
    docker-compose up -d
    ```
+##### 💡 Fix Redis WARNING Memory overcommit must be enabled issue on [Stack Overflow](https://stackoverflow.com/a/77345711/6581893)
+
 Feel free to customize the Docker Compose file to add or remove services as needed.
 
 
