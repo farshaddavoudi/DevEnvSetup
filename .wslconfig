@@ -1,0 +1,13 @@
+# Settings apply across all Linux distros running on WSL 2
+[wsl2]
+
+# How much memory to assign to the WSL 2 VM.
+# Default: 50% of total memory on Windows or 8GB, whichever is less.
+memory=6GB 
+
+# How many logical processors to assign to the WSL 2 VM.
+# Default: The same number of logical processors on Windows
+#processors=2
+
+# Sets amount of swap storage space to 8GB, default is 25% of available RAM
+#swap=8GB
