@@ -27,8 +27,7 @@ services:
       - REDIS_PASSWORD=****
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
-    #command: redis-server /usr/local/etc/redis/redis.conf #Raises error if no config file provides. Enable when there is already a config file in the config directory
-    volumes:
+    volumes: #command: redis-server /usr/local/etc/redis/redis.conf #Raises error if no config file provides. Enable when there is already a config file in the config directory
       - ./Redis-7.2/data:/data
       - ./Redis-7.2/config:/usr/local/etc/redis
     networks:
@@ -75,10 +74,9 @@ services:
     environment:
         - RABBITMQ_DEFAULT_USER=admin
         - RABBITMQ_DEFAULT_PASS=****
-    volumes:
-                  # queues and messages data of the container will be stored on the host
-                - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
-                - ./RabbitMQ-3.11/log:/var/log/rabbitmq
+    volumes: # queues and messages data of the container will be stored on the host
+        - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
+        - ./RabbitMQ-3.11/log:/var/log/rabbitmq
     networks:
       - shared-net
       
