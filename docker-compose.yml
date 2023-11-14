@@ -14,6 +14,8 @@ services:
       #POSTGRES_DB: mydb //We let the postgres create a default database
     volumes:
        - ./Postgres-15.4/data:/var/lib/postgresql/data
+    networks:
+      - shared-net
 
   redisdb-7.2:
     image: redis:7.2.1
@@ -29,6 +31,8 @@ services:
     volumes:
       - ./Redis-7.2/data:/data
       - ./Redis-7.2/config:/usr/local/etc/redis
+    networks:
+      - shared-net
 
   mongodb-7:
     image: mongo:7
@@ -42,6 +46,8 @@ services:
     volumes:
       - ./Mongo-7/data:/data/db
       - ./Mongo-7/config:/data/configdb
+    networks:
+      - shared-net
 
   seq-2023.4:
     image: datalust/seq:2023.4
@@ -56,7 +62,9 @@ services:
       - SEQ_FIRSTRUN_ADMINUSERNAME=admin #A username for the default administrator account
     volumes:
       - ./Seq-2023.4/data:/data
-
+    networks:
+      - shared-net
+      
   rabbitmq-3.11:
     image: rabbitmq:3.11-management
     container_name: rabbitmq-3.11
@@ -71,6 +79,8 @@ services:
                   # queues and messages data of the container will be stored on the host
                 - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
                 - ./RabbitMQ-3.11/log:/var/log/rabbitmq
-
+    networks:
+      - shared-net
+      
 networks:
   shared-net:
