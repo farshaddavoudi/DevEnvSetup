@@ -10,10 +10,10 @@ services:
       - 5432:5432
     environment:
       #POSTGRES_USER: someusername //We use the default postgres superuser
-      POSTGRES_PASSWORD: ****
+      POSTGRES_PASSWORD: <your-password>
       #POSTGRES_DB: mydb //We let the postgres create a default database
     volumes:
-       - ./Postgres-15.4/data:/var/lib/postgresql/data
+      - ./Postgres-15.4/data:/var/lib/postgresql/data
     networks:
       - shared-net
 
@@ -24,7 +24,7 @@ services:
     ports:
       - 6379:6379
     environment:
-      - REDIS_PASSWORD=****
+      - REDIS_PASSWORD=<your-password>
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
     volumes: #command: redis-server /usr/local/etc/redis/redis.conf #Raises error if no config file provides. Enable when there is already a config file in the config directory
@@ -41,7 +41,7 @@ services:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: ****
+      MONGO_INITDB_ROOT_PASSWORD: <your-password>
     volumes:
       - ./Mongo-7/data:/data/db
       - ./Mongo-7/config:/data/configdb
@@ -69,16 +69,71 @@ services:
     container_name: rabbitmq-3.11
     restart: always
     ports:
-        - 5672:5672 # (erlang) communication between the nodes and CLI tool
-        - 15672:15672 # communication with the web management API 
+      - 5672:5672 # (erlang) communication between the nodes and CLI tool
+      - 15672:15672 # communication with the web management API 
     environment:
-        - RABBITMQ_DEFAULT_USER=admin
-        - RABBITMQ_DEFAULT_PASS=****
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=<your-password>
     volumes: # queues and messages data of the container will be stored on the host
-        - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
-        - ./RabbitMQ-3.11/log:/var/log/rabbitmq
+      - ./RabbitMQ-3.11/data:/var/lib/rabbitmq
+      - ./RabbitMQ-3.11/log:/var/log/rabbitmq
     networks:
       - shared-net
-      
+
+  elasticsearch-7.17:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.6    
+    container_name: elasticsearch-7.17
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - xpack.security.enabled=true # Enables Elasticsearch security features on the node.
+      - ELASTIC_PASSWORD=<your-password>
+    networks:
+      - shared-net
+
+  kibana-7.17:
+    image: docker.elastic.co/kibana/kibana:7.17.6    
+    container_name: kibana-7.17
+    restart: always
+    ports:
+      - 5601:5601
+    environment:
+      - KIBANA_JAVA_OPTS=-Xms512m -Xmx512m
+      - XPACK_MONITORING_ENABLED=true
+      - ELASTICSEARCH_HOSTS=http://elasticsearch-7.17:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=<your-password>
+    networks:
+      - shared-net
+    depends_on:
+      - elasticsearch-7.17
+        
+  jaeger-1.52:
+    image: jaegertracing/all-in-one:1.52.0    
+    container_name: jaeger-1.52
+    restart: always
+    ports:
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 5778:5778
+      - 16686:16686 # UI
+      - 14268:14268
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch # The storage is defined as Elasticsearch type
+      - ES_SERVER_URLS=http://elasticsearch-7.17:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=<your-password>
+      - ES_TAGS_AS_FIELDS_ALL=true # To store the Jaeger traces properly
+    networks:
+      - shared-net
+    depends_on:
+      - elasticsearch-7.17
+
 networks:
   shared-net:
