@@ -3,7 +3,9 @@
 
 # How much memory to assign to the WSL 2 VM.
 # Default: 50% of total memory on Windows or 8GB, whichever is less.
-memory=6GB 
+memory=6GB # For 8GB RAM 
+# memory=10GB # For 16GB RAM 
+# ...
 
 # How many logical processors to assign to the WSL 2 VM.
 # Default: The same number of logical processors on Windows
