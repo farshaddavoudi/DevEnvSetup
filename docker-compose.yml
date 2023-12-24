@@ -135,5 +135,12 @@ services:
     depends_on:
       - elasticsearch-7.17
 
+  dapr-1.12:
+    image: daprio/dapr:1.12.3-rc.2-stablecomponents   
+    container_name: dapr-1.12
+    restart: always
+    networks:
+      - shared-net
+
 networks:
   shared-net:
