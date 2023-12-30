@@ -129,6 +129,7 @@ services:
       - ES_SERVER_URLS=http://elasticsearch-7.17:9200
       - ES_USERNAME=elastic
       - ES_PASSWORD=<your-password>
+      - COLLECTOR_ZIPKIN_HTTP_PORT=9412 # For Dapr
       - ES_TAGS_AS_FIELDS_ALL=true # To store the Jaeger traces properly
     networks:
       - shared-net
