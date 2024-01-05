@@ -1,0 +1,6 @@
+@_Dapr1_HostAddress = http://localhost:5242
+
+GET {{_Dapr1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

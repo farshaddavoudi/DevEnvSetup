@@ -12,6 +12,7 @@
 ## Setup Dapr SDK
 
 - **Install Dapr Nuget Package:**
+
 `dotnet add package Dapr.AspNetCore`
 
 - **Do Changes in `program.cs` file**
@@ -39,3 +40,5 @@ app.MapControllers();
 ```
 
 ## Interact with Dapr in .NET Core app
+
+Check out the *DaprProjA* and *DaprProjB* projects in this repo.
