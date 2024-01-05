@@ -1,0 +1,22 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+  namespace: default
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    secretKeyRef:
+      name: redis
+      key: redis-host
+  - name: redisPassword
+    secretKeyRef:
+      name: redis
+      key: redis-password
+  # uncomment below for connecting to redis cache instances over TLS (ex - Azure Redis Cache)
+  # - name: enableTLS
+  #   value: true 
+auth:
+  secretStore: ataSecrets

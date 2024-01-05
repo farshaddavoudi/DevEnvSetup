@@ -1,0 +1,23 @@
+version: 1
+common: # optional section for variables shared across apps
+  resourcesPath: ./components # any dapr resources to be shared across apps # relative to the template file path (this file)
+  configFilePath: ./config.yaml
+  env:  # any environment variable shared across apps
+    DEBUG: true
+apps:
+  - appID: DaprProjA # optional
+    appDirPath: ../DaprProjA/ # REQUIRED # relative to the template file path (this file). Other paths below are relative to this one (appDirPath)
+    #resourcesPaths: .dapr/resources # comma separated resources paths. (optional) can be left to default value by convention.
+    appChannelAddress: 127.0.0.1 # network address where the app listens on. (optional) can be left to default value by convention.
+    #configFilePath: .dapr/config.yaml # (optional) can be default by convention too, ignore if file is not found.
+    appProtocol: http
+    appPort: 5242
+    #appHealthCheckPath: "/healthz"
+    command: ["dotnet", "run"]
+    #appLogDestination: file # (optional), can be file, console or fileAndConsole. default is fileAndConsole.
+    #daprdLogDestination: file # (optional), can be file, console or fileAndConsole. default is file.
+
+  - appID: DaprProjB 
+    appDirPath: ../DaprProjB/
+    appPort: 5159
+    command: ["dotnet", "run"]

@@ -124,6 +124,7 @@ services:
       - 5778:5778
       - 16686:16686 # UI
       - 14268:14268
+      - 9412:9412
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch # The storage is defined as Elasticsearch type
       - ES_SERVER_URLS=http://elasticsearch-7.17:9200

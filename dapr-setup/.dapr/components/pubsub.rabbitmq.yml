@@ -1,0 +1,50 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: rabbitmq-pubsub 
+spec:
+  type: pubsub.rabbitmq
+  version: v1
+  metadata:
+  - name: connectionString # Required, example: amqp://user:pass@localhost:5672
+    value: "amqp://admin:Aa123456@localhost:5672"
+  - name: protocol # Optional
+    value: amqp  
+  - name: consumerID # Optional, Consumer ID (consumer tag) organizes one or more consumers into a group. Consumers with the same consumer ID work as one virtual consumer; for example, a message is processed only once by one of the consumers in the group.
+    value: "ata-core-identity" 
+  - name: durable # Optional, Whether or not to use durable queues. Defaults to "false"
+    value: false
+  - name: deletedWhenUnused # Optional, Whether or not the queue should be configured to auto-delete. Defaults to "true"
+    value: false
+  - name: autoAck # Optional, Whether or not the queue consumer should auto-ack messages. Defaults to "false"
+    value: false
+  - name: deliveryMode # Optional, Persistence mode when publishing messages. Defaults to "0". RabbitMQ treats "2" as persistent, all other numbers as non-persistent
+    value: 0 # 2 => persist
+  - name: requeueInFailure # Optional, Whether or not to requeue when sending a negative acknowledgement in case of a failure. Defaults to "false"
+    value: false
+  - name: prefetchCount # Optional, Number of messages to prefetch. Consider changing this to a non-zero value for production environments. Defaults to "0", which means that all available messages will be pre-fetched.
+    value: 1
+  - name: reconnectWait # Optional, How long to wait (in seconds) before reconnecting if a connection failure occurs
+    value: 5
+  - name: concurrencyMode # Optional, parallel is the default, and allows processing multiple messages in parallel (limited by the app-max-concurrency annotation, if configured). Set to single to disable parallel processing. In most situations there�s no reason to change this.
+    value: parallel
+  - name: publisherConfirm # Optional, If enabled, client waits for publisher confirms after publishing a message. Defaults to "false"
+    value: false
+  - name: enableDeadLetter # Optional, Enable forwarding Messages that cannot be handled to a dead-letter topic. Defaults to "false"
+    value: true
+  - name: maxLen # Optional max message count in a queue
+    value: 3000
+  - name: maxLenBytes # Optional maximum length in bytes of a queue.
+    value: 10485760
+  - name: exchangeKind # Optional, Exchange kind of the rabbitmq exchange. Defaults to "fanout". Can be "topic"
+    value: fanout
+  - name: saslExternal # Optional, With TLS, should the username be taken from an additional field (for example, CN). See RabbitMQ Authentication Mechanisms. Defaults to "false".
+    value: false
+  - name: ttlInSeconds # Optional, Set message TTL at the component level, which can be overwritten by message level TTL per request.
+    value: 60
+  - name: clientName # Optional, This RabbitMQ client-provided connection name is a custom identifier. If set, the identifier is mentioned in RabbitMQ server log entries and management UI. Can be set to {uuid}, {podName}, or {appID}, which is replaced by Dapr runtime to the real value.
+    value: {appID}
+  - name: heartBeat # Optional, Defines the heartbeat interval with the server, detecting the aliveness of the peer TCP connection with the RabbitMQ server. Defaults to 10s .
+    value: 10s
+auth:
+  secretStore: ataSecrets
