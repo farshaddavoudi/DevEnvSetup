@@ -42,3 +42,11 @@ app.MapControllers();
 ## Interact with Dapr in .NET Core app
 
 Check out the *DaprProjA* and *DaprProjB* projects in this repo.
+
+## Run all micro-services together using Dapr
+
+Go to the path `dapr.yaml` exists and run this command there:
+
+```bash
+dapr run -f .
+```
