@@ -27,10 +27,10 @@ public static class DaprConst
         public class DaprTestedEvent
         {
             public const string TopicName = "test-topic";
-            public const string RouteKey1 = "route1";
-            public const string MatchRouteKey1 = $"event.type == \"{RouteKey1}\"";
-            public const string RouteKey2 = "route2";
-            public const string MatchRouteKey2 = $"event.type == \"{RouteKey2}\"";
+            public const string UserDismissedRouteKey = "route1";
+            public const string SubscribeUserDismissedRouteKey = $"event.type == \"{UserDismissedRouteKey}\"";
+            public const string UserPostChangedRouteKey = "route2";
+            public const string SubscribeUserPostChangedRouteKey = $"event.type == \"{UserPostChangedRouteKey}\"";
         }
     }
 }

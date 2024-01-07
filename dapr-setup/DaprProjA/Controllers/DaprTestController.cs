@@ -56,7 +56,7 @@ public class DaprTestController : ControllerBase
 
         var data = new Person() { FullName = "Feri" };
 
-        var metadata = DaprConst.PubSub.MetadataToPublishEventWithRouteKey(DaprConst.PubSub.DaprTestedEvent.RouteKey1);
+        var metadata = DaprConst.PubSub.MetadataToPublishEventWithRouteKey(DaprConst.PubSub.DaprTestedEvent.UserDismissedRouteKey);
 
         await client.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, metadata, cancellationToken);
 

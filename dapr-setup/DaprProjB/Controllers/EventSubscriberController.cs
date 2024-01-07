@@ -9,7 +9,7 @@ public class EventSubscriberController : ControllerBase
 {
     [Topic(DaprConst.PubSub.Name,
         DaprConst.PubSub.DaprTestedEvent.TopicName,
-        DaprConst.PubSub.DaprTestedEvent.MatchRouteKey1,
+        DaprConst.PubSub.DaprTestedEvent.SubscribeBoxIdEditedUser,
         1)]
     [HttpPost]
     public async Task<IActionResult> TestEvent1(Person person)
@@ -20,7 +20,7 @@ public class EventSubscriberController : ControllerBase
 
     [Topic(DaprConst.PubSub.Name,
         DaprConst.PubSub.DaprTestedEvent.TopicName,
-        DaprConst.PubSub.DaprTestedEvent.MatchRouteKey2,
+        DaprConst.PubSub.DaprTestedEvent.SubscribeUserPostChangedRouteKey,
         2)]
     [HttpPost]
     public async Task<IActionResult> TestEvent2(Person person)
