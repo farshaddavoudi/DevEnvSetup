@@ -1,7 +1,7 @@
 ﻿using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 
-namespace _Dapr1.Controllers;
+namespace DaprProjA.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
@@ -12,7 +12,7 @@ public class DaprTestController : ControllerBase
     {
         var client = new DaprClientBuilder().Build();
 
-        var person = await client.InvokeMethodAsync<Person>(HttpMethod.Get, "_Dapr2", "Person/Friend", cancellationToken);
+        var person = await client.InvokeMethodAsync<Person>(HttpMethod.Get, DaprConst.AppId.ProjectB, "Person/Friend", cancellationToken);
 
         return Ok(person);
     }
@@ -20,11 +20,9 @@ public class DaprTestController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SetState()
     {
-        string DAPR_STORE_NAME = "statestore";
-
         var client = new DaprClientBuilder().Build();
 
-        await client.SaveStateAsync<string>(DAPR_STORE_NAME, "Name", "Farshad");
+        await client.SaveStateAsync<string>(DaprConst.StoreName, "Name", "Farshad");
 
         return Ok("Done");
     }
@@ -32,11 +30,9 @@ public class DaprTestController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetState()
     {
-        string DAPR_STORE_NAME = "statestore";
-
         var client = new DaprClientBuilder().Build();
 
-        var value = await client.GetStateAsync<string>(DAPR_STORE_NAME, "Name");
+        var value = await client.GetStateAsync<string>(DaprConst.StoreName, "Name");
 
         return Ok(value);
     }
@@ -48,7 +44,7 @@ public class DaprTestController : ControllerBase
 
         var data = new Person() { FullName = "Feri" };
 
-        await client.PublishEventAsync("rabbitmq-pubsub", "test-topic", data, cancellationToken);
+        await client.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, cancellationToken);
 
         return Ok("Published");
     }
@@ -60,10 +56,9 @@ public class DaprTestController : ControllerBase
 
         var data = new Person() { FullName = "Feri" };
 
-        // Override cloudevent metadata
-        var metadata = new Dictionary<string, string> { { "cloudevent.type", routeKey } };
+        var metadata = DaprConst.PubSub.MetadataToPublishEventWithRouteKey(DaprConst.PubSub.DaprTestedEvent.RouteKey1);
 
-        await client.PublishEventAsync("rabbitmq-pubsub", "test-topic", data, metadata, cancellationToken);
+        await client.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, metadata, cancellationToken);
 
         return Ok("Published");
     }

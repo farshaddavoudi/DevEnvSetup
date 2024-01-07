@@ -1,4 +1,4 @@
-namespace _Dapr1;
+namespace DaprProjA;
 
 public class WeatherForecast
 {

@@ -7,7 +7,10 @@ namespace DaprProjB.Controllers;
 [Route("[controller]/[action]")]
 public class EventSubscriberController : ControllerBase
 {
-    [Topic("rabbitmq-pubsub", "test-topic", match: "event.type == \"route1\"", 1)]
+    [Topic(DaprConst.PubSub.Name,
+        DaprConst.PubSub.DaprTestedEvent.TopicName,
+        DaprConst.PubSub.DaprTestedEvent.MatchRouteKey1,
+        1)]
     [HttpPost]
     public async Task<IActionResult> TestEvent1(Person person)
     {
@@ -15,7 +18,10 @@ public class EventSubscriberController : ControllerBase
         return Ok();
     }
 
-    [Topic("rabbitmq-pubsub", "test-topic", match: "event.type == \"route2\"", 2)]
+    [Topic(DaprConst.PubSub.Name,
+        DaprConst.PubSub.DaprTestedEvent.TopicName,
+        DaprConst.PubSub.DaprTestedEvent.MatchRouteKey2,
+        2)]
     [HttpPost]
     public async Task<IActionResult> TestEvent2(Person person)
     {
@@ -23,7 +29,7 @@ public class EventSubscriberController : ControllerBase
         return Ok();
     }
 
-    [Topic("rabbitmq-pubsub", "test-topic")]
+    [Topic(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName)]
     [HttpPost]
     public async Task<IActionResult> TestEventDefault(Person person)
     {
