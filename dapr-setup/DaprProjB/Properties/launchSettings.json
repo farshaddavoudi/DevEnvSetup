@@ -29,6 +29,12 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "dapr": {
+      "commandName": "Executable",
+      "executablePath": "dapr.exe",
+      "workingDirectory": "$(ProjectDir)/../.dapr",
+      "commandLineArgs": "run -f ."
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
