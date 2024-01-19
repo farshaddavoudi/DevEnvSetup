@@ -1,0 +1,55 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "projectA with Dapr",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-projectA",
+            "program": "${workspaceFolder}/DaprProjA/bin/Debug/net8.0/DaprProjA.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DaprProjA",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "console": "externalTerminal",
+            "postDebugTask": "daprd-down-projectA",
+        }
+        ,{
+            "name": "projectB with Dapr",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-projectB",
+            "program": "${workspaceFolder}/DaprProjB/bin/Debug/net8.0/DaprProjB.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DaprProjB",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "console": "externalTerminal",
+            "postDebugTask": "daprd-down-projectB",
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Run projects with dapr",
+            "configurations": ["projectA with Dapr","projectB with Dapr"]
+        }
+    ]
+}
