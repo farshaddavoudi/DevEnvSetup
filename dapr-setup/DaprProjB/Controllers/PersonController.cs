@@ -4,14 +4,9 @@ namespace DaprProjB.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class PersonController : ControllerBase
+public class PersonController(ILogger<WeatherForecastController> logger) : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public PersonController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<WeatherForecastController> _logger = logger;
 
     [HttpGet]
     public IActionResult Friend()

@@ -1,11 +1,12 @@
 ﻿using Dapr;
+using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DaprProjB.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class EventSubscriberController : ControllerBase
+public class EventSubscriberController(DaprClient daprClient) : ControllerBase
 {
     [Topic(DaprConst.PubSub.Name,
         DaprConst.PubSub.DaprTestedEvent.TopicName,
