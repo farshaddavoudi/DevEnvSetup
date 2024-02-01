@@ -10,7 +10,11 @@ public class DaprTestController(DaprClient daprClient) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> InvokeHttp(CancellationToken cancellationToken)
     {
-        var person = await daprClient.InvokeMethodAsync<Person>(HttpMethod.Get, DaprConst.AppId.ProjectB, "Person/Friend", cancellationToken);
+        var person = await daprClient.InvokeMethodAsync<Person>(
+            HttpMethod.Get,
+            DaprConst.AppId.ProjectB,
+            "Person/Friend",
+            cancellationToken);
 
         return Ok(person);
     }
