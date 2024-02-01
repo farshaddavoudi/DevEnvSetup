@@ -5,14 +5,16 @@ namespace DaprProjA.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class DaprTestController : ControllerBase
+public class DaprTestController(DaprClient daprClient) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> InvokeHttp(CancellationToken cancellationToken)
     {
-        var client = new DaprClientBuilder().Build();
-
-        var person = await client.InvokeMethodAsync<Person>(HttpMethod.Get, DaprConst.AppId.ProjectB, "Person/Friend", cancellationToken);
+        var person = await daprClient.InvokeMethodAsync<Person>(
+            HttpMethod.Get,
+            DaprConst.AppId.ProjectB,
+            "Person/Friend",
+            cancellationToken);
 
         return Ok(person);
     }
@@ -20,9 +22,7 @@ public class DaprTestController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SetState()
     {
-        var client = new DaprClientBuilder().Build();
-
-        await client.SaveStateAsync<string>(DaprConst.StoreName, "Name", "Farshad");
+        await daprClient.SaveStateAsync<string>(DaprConst.StoreName, "Name", "Farshad");
 
         return Ok("Done");
     }
@@ -30,9 +30,7 @@ public class DaprTestController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetState()
     {
-        var client = new DaprClientBuilder().Build();
-
-        var value = await client.GetStateAsync<string>(DaprConst.StoreName, "Name");
+        var value = await daprClient.GetStateAsync<string>(DaprConst.StoreName, "Name");
 
         return Ok(value);
     }
@@ -40,11 +38,9 @@ public class DaprTestController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PublishMessage(CancellationToken cancellationToken)
     {
-        var client = new DaprClientBuilder().Build();
+        var data = new Person { FullName = "Feri" };
 
-        var data = new Person() { FullName = "Feri" };
-
-        await client.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, cancellationToken);
+        await daprClient.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, cancellationToken);
 
         return Ok("Published");
     }
@@ -52,13 +48,11 @@ public class DaprTestController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PublishMessageWithRouteKey(string routeKey, CancellationToken cancellationToken)
     {
-        var client = new DaprClientBuilder().Build();
-
         var data = new Person() { FullName = "Feri" };
 
         var metadata = DaprConst.PubSub.MetadataToPublishEventWithRouteKey(DaprConst.PubSub.DaprTestedEvent.UserDismissedRouteKey);
 
-        await client.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, metadata, cancellationToken);
+        await daprClient.PublishEventAsync(DaprConst.PubSub.Name, DaprConst.PubSub.DaprTestedEvent.TopicName, data, metadata, cancellationToken);
 
         return Ok("Published");
     }

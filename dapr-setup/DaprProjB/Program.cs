@@ -11,10 +11,12 @@ builder.Services.AddControllers().AddDapr(daprClientBuilder =>
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             PropertyNameCaseInsensitive = true
         }));
-        
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDaprClient();
 
 var app = builder.Build();
 
