@@ -97,7 +97,7 @@ services:
       - shared-net
 
   kibana-7.17:
-    image: docker.elastic.co/kibana/kibana:7.17.6    
+    image: kibana:7.17.18    
     container_name: kibana-7.17
     restart: always
     ports:
