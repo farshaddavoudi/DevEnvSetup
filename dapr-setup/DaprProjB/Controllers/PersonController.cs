@@ -1,3 +1,4 @@
+using DaprProjB.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DaprProjB.Controllers;
@@ -6,8 +7,7 @@ namespace DaprProjB.Controllers;
 [Route("[controller]/[action]")]
 public class PersonController(ILogger<WeatherForecastController> logger) : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger = logger;
-
+    [DaprAuthorize]
     [HttpGet]
     public IActionResult Friend()
     {
