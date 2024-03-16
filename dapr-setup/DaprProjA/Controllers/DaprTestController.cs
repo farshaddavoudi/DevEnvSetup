@@ -20,9 +20,19 @@ public class DaprTestController(DaprClient daprClient) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> SetState()
+    public async Task<IActionResult> SetState(CancellationToken cancellationToken)
     {
-        await daprClient.SaveStateAsync<string>(DaprConst.StoreName, "Name", "Farshad");
+        // Fixed
+        await daprClient.SaveStateAsync<string>(DaprConst.StoreName, "Name", "Farshad", cancellationToken: cancellationToken);
+
+        // With TTL
+        await daprClient.SaveStateAsync<string>(
+            DaprConst.StoreName,
+            "Name",
+            "Farshad",
+            new StateOptions(),
+            DaprConst.MetadataToSetStateTtl(TimeSpan.FromDays(1)),
+            cancellationToken);
 
         return Ok("Done");
     }

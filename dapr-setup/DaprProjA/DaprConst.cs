@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace DaprProjA;
 
 public static class DaprConst
@@ -6,6 +8,9 @@ public static class DaprConst
     /// Dapr Store Component Name
     /// </summary>
     public const string StoreName = "statestore";
+
+    public static Dictionary<string, string> MetadataToSetStateTtl(TimeSpan ttl) =>
+        new() { { "ttlInSeconds", ttl.TotalSeconds.ToString(CultureInfo.InvariantCulture) } };
 
     public class AppId
     {
