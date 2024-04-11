@@ -351,3 +351,8 @@ healthchecksdb
 *.Designer.cs
 !**/Resources/**/*.Designer.cs
 
+**/nameResolution/sqlite.db
+**/nameResolution/sqlite.db-shm
+**/nameResolution/sqlite.db-wal
+
+**/.dapr/logs
