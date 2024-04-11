@@ -1,10 +1,17 @@
 apiVersion: dapr.io/v1alpha1
 kind: Configuration
 metadata:
-  name: tracing
-  namespace: default
+  name: appconfig
 spec:
+  nameResolution:
+    component: "sqlite"
+    version: "v1"
+    configuration: #fields: https://docs.dapr.io/reference/components-reference/supported-name-resolution/nr-sqlite/#spec-configuration-fields
+      connectionString: "../.dapr/components/nameResolution/sqlite.db"
   tracing:
     samplingRate: "1"
     zipkin: # Note that we are using the Zipkin protocol to talk to Jaeger
-      endpointAddress: "http://localhost:9412/api/v2/spans"
+      endpointAddress: "http://192.168.1.37:9412/api/v2/spans"
+  features: 
+    - name: proxy.grpc
+      enabled: true

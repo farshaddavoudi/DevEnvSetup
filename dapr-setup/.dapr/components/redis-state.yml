@@ -19,4 +19,4 @@ spec:
   # - name: enableTLS
   #   value: true 
 auth:
-  secretStore: ataSecrets
+  secretStore: mySecrets

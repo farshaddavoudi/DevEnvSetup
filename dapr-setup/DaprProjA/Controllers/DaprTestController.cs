@@ -7,7 +7,7 @@ namespace DaprProjA.Controllers;
 [Route("[controller]/[action]")]
 public class DaprTestController(DaprClient daprClient) : ControllerBase
 {
-    [HttpPost]
+    [HttpGet]
     public async Task<IActionResult> InvokeHttp(CancellationToken cancellationToken)
     {
         var person = await daprClient.InvokeMethodAsync<Person>(
