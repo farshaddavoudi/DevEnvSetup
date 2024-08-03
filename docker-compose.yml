@@ -192,6 +192,19 @@ services:
     networks:
       - shared-net      
 
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.0.0
+    container_name: aspire-dashboard
+    stdin_open: true
+    tty: true
+    ports:
+        - 18888:18888
+        - 4317:18889
+    environment:
+        - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+    networks:
+      - shared-net      
+    
   dapr-1.12:
     image: daprio/dapr:1.12.3-rc.2-stablecomponents   
     container_name: dapr-1.12
